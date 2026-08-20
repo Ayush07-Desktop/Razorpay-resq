@@ -13,6 +13,54 @@ export type FailureReason =
 // User segments for personalization
 export type UserSegment = "new" | "returning" | "high_value";
 
+// Nudge communication channels
+export type NudgeChannel = "whatsapp" | "sms" | "push" | "upi_intent";
+
+// Structured customer communication payload
+export interface NudgeMessage {
+  channel: NudgeChannel;
+  title: string;
+  body: string;
+  ctaText: string;
+  ctaLink: string;
+  scheduledDelay: string;
+  incentiveOffer?: string;
+  channelRationale: string;
+}
+
+// Multi-Agent execution trace for transparency
+export interface AgentTrace {
+  step: number;
+  agentName: "Sentinel Agent" | "Smart Routing Agent" | "Behavioral Agent" | "Arbitrage & Risk Agent";
+  action: string;
+  confidence: number; // 0–100
+  detail: string;
+  timestampMs: number;
+}
+
+// Real-time bank & gateway telemetry node
+export interface BankNodeHealth {
+  id: string;
+  name: string;
+  type: "bank" | "upi" | "card_network" | "wallet";
+  latencyMs: number;
+  successRate: number; // 0–100%
+  status: "healthy" | "degraded" | "critical";
+  lastIncident?: string;
+  recommendedAlternative?: string;
+}
+
+// Policy Sandbox configuration
+export interface PolicySettings {
+  minConfidence: number; // e.g. 40%
+  enableWhatsApp: boolean;
+  enableSMS: boolean;
+  enablePush: boolean;
+  enableAutoReroute: boolean;
+  dynamicDiscountPct: number; // 0-5% incentive
+  targetSegments: UserSegment[];
+}
+
 // A single failed/abandoned transaction
 export interface Transaction {
   transaction_id: string;
@@ -38,6 +86,11 @@ export interface RecoveryResult {
   recovered: boolean; // simulated outcome
   recovered_amount: number; // amount if recovered, else 0
   time_of_failure: string;
+  // Extended Next-Gen fields
+  nudge?: NudgeMessage;
+  agent_traces?: AgentTrace[];
+  failover_gateway?: string;
+  estimated_ltv_impact?: number;
 }
 
 // Aggregated stats for dashboard summary cards
@@ -59,3 +112,4 @@ export interface TimelineDataPoint {
   recovered: number; // cumulative recovered amount
   at_risk: number; // cumulative at-risk amount
 }
+
