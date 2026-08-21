@@ -140,17 +140,17 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       <div>
-        <div className="flex items-center justify-between flex-wrap gap-4 mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-2">
           <div>
-            <h2 className="text-2xl font-bold text-[#FAFAFA]">AI Policy & Strategy Sandbox</h2>
-            <p className="text-sm text-[#8B949E]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA]">AI Policy & Strategy Sandbox</h2>
+            <p className="text-xs sm:text-sm text-[#8B949E] mt-0.5">
               Test what-if recovery strategies in real time. Adjust thresholds, channels, and incentive economics.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-[#8B949E]">Strategy Presets:</span>
+          <div className="flex items-center flex-wrap gap-2">
+            <span className="text-xs text-[#8B949E] w-full xs:w-auto">Presets:</span>
             <button
               onClick={() => applyPreset("max_recovery")}
               className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#388BFD] cursor-pointer"
@@ -174,10 +174,10 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
       </div>
 
       {/* Grid: Controls on Left, Real-Time ROI Output on Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         {/* Left: Interactive Policy Knobs (7 cols) */}
-        <div className="lg:col-span-7 space-y-6 bg-[#161B22] p-6 rounded-2xl border border-[#242D3D]">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-[#388BFD] flex items-center gap-2">
+        <div className="lg:col-span-7 space-y-5 sm:space-y-6 bg-[#161B22] p-4 sm:p-6 rounded-2xl border border-[#242D3D]">
+          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#388BFD] flex items-center gap-2">
             <span>⚙️</span> Strategy Knobs & Thresholds
           </h3>
 
@@ -230,7 +230,7 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
           {/* Channel Multi-Toggles */}
           <div>
             <span className="font-semibold text-xs text-[#FAFAFA] block mb-3">Communication & Routing Channels</span>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <label className="flex items-center gap-2.5 bg-[#0E1117] p-3 rounded-xl border border-[#242D3D] cursor-pointer">
                 <input
                   type="checkbox"
@@ -265,7 +265,7 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
                   className="accent-[#A371F7]"
                 />
                 <div>
-                  <span className="text-xs font-semibold text-[#FAFAFA] block">App Push & UPI Deep-Link</span>
+                  <span className="text-xs font-semibold text-[#FAFAFA] block">App Push & UPI Intent</span>
                   <span className="text-[10px] text-[#8B949E]">₹0.00 • Zero latency</span>
                 </div>
               </label>
@@ -288,7 +288,7 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
           {/* Segment Targeting */}
           <div>
             <span className="font-semibold text-xs text-[#FAFAFA] block mb-2">Target Customer Segments</span>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {[
                 { id: "high_value", label: "High Value (VIP)", color: "#A371F7" },
                 { id: "returning", label: "Returning Customers", color: "#388BFD" },
@@ -299,7 +299,7 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
                   <button
                     key={seg.id}
                     onClick={() => toggleSegment(seg.id)}
-                    className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                    className={`py-1.5 sm:py-2 px-3 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                       active
                         ? "bg-[#1C2333] text-[#FAFAFA] border-[#388BFD]"
                         : "bg-[#0E1117] text-[#6E7681] border-[#242D3D]"
@@ -315,58 +315,58 @@ export default function PolicySandboxTab({ results }: PolicySandboxTabProps) {
 
         {/* Right: Dynamic Unit Economics & Net Profit (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-gradient-to-br from-[#0D2847] to-[#0A192F] p-6 rounded-2xl border border-[#1E3A5F] shadow-xl">
+          <div className="bg-gradient-to-br from-[#0D2847] to-[#0A192F] p-4 sm:p-6 rounded-2xl border border-[#1E3A5F] shadow-xl">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#7EB6F0]">
               LIVE POLICY UNIT ECONOMICS
             </span>
-            <h3 className="text-xl font-bold text-[#F0F6FC] mt-1 mb-4">Net Merchant Yield</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-[#F0F6FC] mt-1 mb-3 sm:mb-4">Net Merchant Yield</h3>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5 sm:space-y-3">
               <div className="flex justify-between items-center py-2 border-b border-white/10 text-xs">
                 <span className="text-[#8B949E]">Gross Recovered Revenue</span>
-                <span className="font-bold text-base text-[#2EA043]">
+                <span className="font-bold text-sm sm:text-base text-[#2EA043]">
                   ₹{policyMetrics.recoveredGross.toLocaleString("en-IN")}
                 </span>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/10 text-xs">
                 <span className="text-[#8B949E]">Communication Dispatch Costs</span>
-                <span className="font-semibold text-[#F85149]">
+                <span className="font-semibold text-xs sm:text-sm text-[#F85149]">
                   -₹{policyMetrics.commCost.toLocaleString("en-IN")}
                 </span>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/10 text-xs">
                 <span className="text-[#8B949E]">Dynamic Incentive Discount Cost</span>
-                <span className="font-semibold text-[#F85149]">
+                <span className="font-semibold text-xs sm:text-sm text-[#F85149]">
                   -₹{policyMetrics.discountCost.toLocaleString("en-IN")}
                 </span>
               </div>
-              <div className="flex justify-between items-center pt-2 text-sm">
+              <div className="flex justify-between items-center pt-2 text-xs sm:text-sm">
                 <span className="font-bold text-[#FAFAFA]">Net Merchant Bottom-Line</span>
-                <span className="font-extrabold text-lg text-[#388BFD]">
+                <span className="font-extrabold text-base sm:text-lg text-[#388BFD]">
                   ₹{policyMetrics.netProfit.toLocaleString("en-IN")}
                 </span>
               </div>
             </div>
 
-            <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-center">
-              <div className="bg-[#0E1117]/60 p-3 rounded-xl">
+            <div className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-white/10 grid grid-cols-2 gap-2.5 sm:gap-3 text-center">
+              <div className="bg-[#0E1117]/60 p-2.5 sm:p-3 rounded-xl">
                 <span className="text-[10px] text-[#8B949E] block">Policy ROI</span>
-                <span className="text-lg font-bold text-[#2EA043]">
+                <span className="text-base sm:text-lg font-bold text-[#2EA043]">
                   {policyMetrics.roiMultiplier}x
                 </span>
               </div>
-              <div className="bg-[#0E1117]/60 p-3 rounded-xl">
+              <div className="bg-[#0E1117]/60 p-2.5 sm:p-3 rounded-xl">
                 <span className="text-[10px] text-[#8B949E] block">Recovery Yield</span>
-                <span className="text-lg font-bold text-[#F0F6FC]">
+                <span className="text-base sm:text-lg font-bold text-[#F0F6FC]">
                   {policyMetrics.recoveryRate}%
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="bg-[#161B22] p-5 rounded-2xl border border-[#242D3D] text-xs space-y-2">
+          <div className="bg-[#161B22] p-4 sm:p-5 rounded-2xl border border-[#242D3D] text-xs space-y-1.5 sm:space-y-2">
             <p className="font-bold text-[#FAFAFA]">💡 Policy Insight</p>
-            <p className="text-[#8B949E] leading-relaxed">
+            <p className="text-[#8B949E] leading-relaxed text-[11px] sm:text-xs">
               With a dynamic {discountPct}% incentive and multi-channel fallback, the engine preserves high conversion
               on high-ticket items while maintaining a {policyMetrics.roiMultiplier}x recovery ROI over communication costs.
             </p>

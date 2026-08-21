@@ -42,17 +42,17 @@ export default function GatewayMatrixTab() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#FAFAFA]">Live Bank Gateway & UPI Health Matrix</h2>
-          <p className="text-sm text-[#8B949E]">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA]">Live Bank Gateway & UPI Health Matrix</h2>
+          <p className="text-xs sm:text-sm text-[#8B949E] mt-0.5">
             Real-time telemetry and sub-50ms automated failover across Indian banking switches and UPI nodes.
           </p>
         </div>
         <button
           onClick={triggerSimulatedOutage}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg cursor-pointer flex items-center gap-2 ${
+          className={`w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg cursor-pointer flex items-center gap-2 shrink-0 ${
             simulatedOutage
               ? "bg-[#F85149] text-white hover:bg-[#ff645e] animate-pulse"
               : "bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#E6A817]"
@@ -64,7 +64,7 @@ export default function GatewayMatrixTab() {
       </div>
 
       {/* Gateway Node Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-5">
         {nodes.map((node) => {
           const isHealthy = node.status === "healthy";
           const isDegraded = node.status === "degraded";
@@ -79,7 +79,7 @@ export default function GatewayMatrixTab() {
           return (
             <div
               key={node.id}
-              className={`p-5 rounded-2xl border transition-all duration-300 ${
+              className={`p-4 sm:p-5 rounded-2xl border transition-all duration-300 ${
                 isCritical
                   ? "bg-[#1E1117] border-[#F85149]/50 shadow-lg shadow-red-900/20"
                   : isDegraded
@@ -92,10 +92,10 @@ export default function GatewayMatrixTab() {
                   <span className="text-[10px] uppercase font-bold text-[#8B949E] tracking-wider">
                     {node.type.replace("_", " ")}
                   </span>
-                  <h3 className="text-base font-bold text-[#FAFAFA]">{node.name}</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-[#FAFAFA]">{node.name}</h3>
                 </div>
                 <span
-                  className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5"
+                  className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shrink-0"
                   style={{
                     backgroundColor: `${statusColor}20`,
                     color: statusColor,
@@ -114,7 +114,7 @@ export default function GatewayMatrixTab() {
                 <div>
                   <span className="text-[10px] text-[#8B949E] block">Success Rate</span>
                   <span
-                    className="text-base font-bold"
+                    className="text-sm sm:text-base font-bold"
                     style={{ color: statusColor }}
                   >
                     {node.successRate}%
@@ -122,7 +122,7 @@ export default function GatewayMatrixTab() {
                 </div>
                 <div>
                   <span className="text-[10px] text-[#8B949E] block">Average Latency</span>
-                  <span className="text-base font-bold text-[#FAFAFA]">
+                  <span className="text-sm sm:text-base font-bold text-[#FAFAFA]">
                     {node.latencyMs} ms
                   </span>
                 </div>
@@ -145,9 +145,9 @@ export default function GatewayMatrixTab() {
       </div>
 
       {/* Real-Time Smart Reroute Audit Stream */}
-      <div className="bg-[#0E1117] p-6 rounded-2xl border border-[#242D3D]">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-bold text-[#FAFAFA] uppercase tracking-wider flex items-center gap-2">
+      <div className="bg-[#0E1117] p-4 sm:p-6 rounded-2xl border border-[#242D3D]">
+        <div className="flex items-center justify-between flex-wrap gap-2 mb-3 sm:mb-4">
+          <h3 className="text-xs sm:text-sm font-bold text-[#FAFAFA] uppercase tracking-wider flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#2EA043] animate-ping" />
             Live Smart Failover Telemetry Stream
           </h3>
@@ -157,7 +157,7 @@ export default function GatewayMatrixTab() {
           {rerouteLog.map((log, idx) => (
             <div
               key={idx}
-              className={`p-2.5 rounded-lg border text-[11px] leading-relaxed ${
+              className={`p-2.5 rounded-lg border text-[11px] leading-relaxed break-words ${
                 log.includes("CRITICAL") || log.includes("OUTAGE")
                   ? "bg-[#F85149]/10 border-[#F85149]/30 text-[#F85149]"
                   : log.includes("FAILOVER") || log.includes("RECOVERY")
@@ -173,3 +173,4 @@ export default function GatewayMatrixTab() {
     </div>
   );
 }
+

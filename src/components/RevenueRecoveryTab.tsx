@@ -134,29 +134,29 @@ export default function RevenueRecoveryTab({
   }, [aiRecoveryRate]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 sm:space-y-10">
       <div>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] mb-1">Recovery Analytics & Enterprise ROI</h2>
-        <p className="text-sm text-[#8B949E]">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA] mb-1">Recovery Analytics & Enterprise ROI</h2>
+        <p className="text-xs sm:text-sm text-[#8B949E]">
           Performance benchmark metrics, comparative breakdown, and personalized merchant unit economics.
         </p>
       </div>
 
       {/* ===== INTERACTIVE MERCHANT ROI CALCULATOR ===== */}
-      <div className="bg-[#161B22] p-6 rounded-2xl border border-[#242D3D] space-y-6">
-        <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#242D3D] pb-4">
+      <div className="bg-[#161B22] p-4 sm:p-6 rounded-2xl border border-[#242D3D] space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#242D3D] pb-3 sm:pb-4">
           <div>
             <span className="text-[10px] font-bold text-[#2EA043] uppercase tracking-wider bg-[#2EA043]/10 px-2 py-0.5 rounded border border-[#2EA043]/20">
               Interactive ROI Simulator
             </span>
-            <h3 className="text-lg font-bold text-[#FAFAFA] mt-1">Personalized Merchant Economics Calculator</h3>
+            <h3 className="text-base sm:text-lg font-bold text-[#FAFAFA] mt-1">Personalized Merchant Economics Calculator</h3>
           </div>
-          <span className="text-xs text-[#8B949E]">Customize your store parameters below:</span>
+          <span className="text-xs text-[#8B949E]">Customize store parameters:</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           <div>
-            <label className="text-xs font-semibold text-[#8B949E] block mb-2">
+            <label className="text-xs font-semibold text-[#8B949E] block mb-1.5 sm:mb-2">
               Monthly Store GMV (₹ Crore)
             </label>
             <div className="flex items-center gap-3">
@@ -167,16 +167,16 @@ export default function RevenueRecoveryTab({
                 step="5"
                 value={merchantGmvCrore}
                 onChange={(e) => setMerchantGmvCrore(Number(e.target.value))}
-                className="w-full accent-[#388BFD]"
+                className="w-full accent-[#388BFD] cursor-pointer"
               />
-              <span className="font-bold text-sm text-[#FAFAFA] min-w-[60px] text-right">
+              <span className="font-bold text-xs sm:text-sm text-[#FAFAFA] min-w-[55px] text-right">
                 ₹{merchantGmvCrore} Cr
               </span>
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#8B949E] block mb-2">
+            <label className="text-xs font-semibold text-[#8B949E] block mb-1.5 sm:mb-2">
               Payment Failure Rate (%)
             </label>
             <div className="flex items-center gap-3">
@@ -187,16 +187,16 @@ export default function RevenueRecoveryTab({
                 step="0.5"
                 value={failureRatePct}
                 onChange={(e) => setFailureRatePct(Number(e.target.value))}
-                className="w-full accent-[#E6A817]"
+                className="w-full accent-[#E6A817] cursor-pointer"
               />
-              <span className="font-bold text-sm text-[#FAFAFA] min-w-[60px] text-right">
+              <span className="font-bold text-xs sm:text-sm text-[#FAFAFA] min-w-[55px] text-right">
                 {failureRatePct}%
               </span>
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#8B949E] block mb-2">
+            <label className="text-xs font-semibold text-[#8B949E] block mb-1.5 sm:mb-2">
               Average Order Value (₹)
             </label>
             <div className="flex items-center gap-3">
@@ -207,9 +207,9 @@ export default function RevenueRecoveryTab({
                 step="500"
                 value={avgTicketSize}
                 onChange={(e) => setAvgTicketSize(Number(e.target.value))}
-                className="w-full accent-[#2EA043]"
+                className="w-full accent-[#2EA043] cursor-pointer"
               />
-              <span className="font-bold text-sm text-[#FAFAFA] min-w-[60px] text-right">
+              <span className="font-bold text-xs sm:text-sm text-[#FAFAFA] min-w-[55px] text-right">
                 ₹{avgTicketSize.toLocaleString("en-IN")}
               </span>
             </div>
@@ -217,36 +217,36 @@ export default function RevenueRecoveryTab({
         </div>
 
         {/* Dynamic Calculation Output Banner */}
-        <div className="bg-gradient-to-r from-[#0D2847] to-[#0A192F] p-5 rounded-xl border border-[#1E3A5F] grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div className="bg-gradient-to-r from-[#0D2847] to-[#0A192F] p-4 sm:p-5 rounded-xl border border-[#1E3A5F] grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
           <div>
-            <span className="text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
               Monthly Value at Risk
             </span>
-            <span className="text-xl font-bold text-[#F85149]">
+            <span className="text-base sm:text-xl font-bold text-[#F85149]">
               ₹{merchantCalculations.monthlyFailedGmv} Cr
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
               Recovered by ResQ
             </span>
-            <span className="text-xl font-bold text-[#388BFD]">
+            <span className="text-base sm:text-xl font-bold text-[#388BFD]">
               ₹{merchantCalculations.aiRecovered} Cr/mo
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
               Net Incremental Lift
             </span>
-            <span className="text-xl font-bold text-[#2EA043]">
+            <span className="text-base sm:text-xl font-bold text-[#2EA043]">
               +₹{merchantCalculations.netMonthlyLift} Cr/mo
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#8B949E] block mb-1">
               Annualized Revenue Rescued
             </span>
-            <span className="text-xl font-extrabold text-[#F0F6FC]">
+            <span className="text-base sm:text-xl font-extrabold text-[#F0F6FC]">
               ₹{merchantCalculations.netAnnualizedLift} Cr/yr
             </span>
           </div>
@@ -254,96 +254,104 @@ export default function RevenueRecoveryTab({
       </div>
 
       {/* Before vs After & Grouped Bar Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-5 bg-[#161B22] p-6 rounded-2xl border border-[#242D3D]">
-          <h3 className="text-base font-bold text-[#FAFAFA] mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        <div className="lg:col-span-5 bg-[#161B22] p-4 sm:p-6 rounded-2xl border border-[#242D3D]">
+          <h3 className="text-sm sm:text-base font-bold text-[#FAFAFA] mb-3 sm:mb-4">
             Recovery Rate: Baseline vs ResQ
           </h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={beforeAfterData} barSize={80}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
-              <XAxis dataKey="name" stroke="#8B949E" fontSize={11} tickLine={false} />
-              <YAxis stroke="#8B949E" fontSize={11} tickFormatter={(v) => `${v}%`} domain={[0, 70]} />
-              <Tooltip
-                contentStyle={{
-                  background: "#161B22",
-                  border: "1px solid #242D3D",
-                  borderRadius: "8px",
-                  color: "#FAFAFA",
-                }}
-                formatter={(value: unknown) => [`${value}%`, "Recovery Rate"]}
-              />
-              <Bar dataKey="rate" radius={[6, 6, 0, 0]}>
-                {beforeAfterData.map((entry, index) => (
-                  <rect key={index} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="w-full h-[220px] sm:h-[260px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={beforeAfterData} barSize={60}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
+                <XAxis dataKey="name" stroke="#8B949E" fontSize={10} tickLine={false} />
+                <YAxis stroke="#8B949E" fontSize={10} tickFormatter={(v) => `${v}%`} domain={[0, 70]} />
+                <Tooltip
+                  contentStyle={{
+                    background: "#161B22",
+                    border: "1px solid #242D3D",
+                    borderRadius: "8px",
+                    color: "#FAFAFA",
+                    fontSize: "12px",
+                  }}
+                  formatter={(value: unknown) => [`${value}%`, "Recovery Rate"]}
+                />
+                <Bar dataKey="rate" radius={[6, 6, 0, 0]}>
+                  {beforeAfterData.map((entry, index) => (
+                    <rect key={index} fill={entry.fill} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
           <div className="flex justify-around text-center text-xs text-[#8B949E] mt-3">
             <div>
-              <span className="text-lg font-bold text-[#F85149] block">{baselineRate}%</span>
+              <span className="text-base sm:text-lg font-bold text-[#F85149] block">{baselineRate}%</span>
               Standard Retry
             </div>
             <div>
-              <span className="text-lg font-bold text-[#388BFD] block">{aiRecoveryRate}%</span>
+              <span className="text-base sm:text-lg font-bold text-[#388BFD] block">{aiRecoveryRate}%</span>
               Autonomous ResQ
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-7 bg-[#161B22] p-6 rounded-2xl border border-[#242D3D]">
-          <h3 className="text-base font-bold text-[#FAFAFA] mb-4">
+        <div className="lg:col-span-7 bg-[#161B22] p-4 sm:p-6 rounded-2xl border border-[#242D3D]">
+          <h3 className="text-sm sm:text-base font-bold text-[#FAFAFA] mb-3 sm:mb-4">
             Recovery Yield by Payment Failure Reason
           </h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={byReasonData} barGap={4}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
-              <XAxis dataKey="name" stroke="#8B949E" fontSize={10} tickLine={false} />
-              <YAxis stroke="#8B949E" fontSize={10} tickFormatter={(v) => `${v}%`} />
-              <Tooltip
-                contentStyle={{
-                  background: "#161B22",
-                  border: "1px solid #242D3D",
-                  borderRadius: "8px",
-                  color: "#FAFAFA",
-                }}
-                formatter={(value: unknown, name: unknown) => [
-                  `${value}%`,
-                  name === "baseline" ? "Baseline (12%)" : "PayRecover ResQ",
-                ]}
-              />
-              <Legend wrapperStyle={{ color: "#8B949E", fontSize: "11px" }} />
-              <Bar dataKey="baseline" fill="#F85149" radius={[3, 3, 0, 0]} barSize={20} name="Baseline" />
-              <Bar dataKey="ai" fill="#388BFD" radius={[3, 3, 0, 0]} barSize={20} name="PayRecover ResQ" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="w-full h-[220px] sm:h-[260px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={byReasonData} barGap={3} margin={{ left: -10, right: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
+                <XAxis dataKey="name" stroke="#8B949E" fontSize={9} tickLine={false} interval={0} angle={-15} textAnchor="end" height={35} />
+                <YAxis stroke="#8B949E" fontSize={10} tickFormatter={(v) => `${v}%`} />
+                <Tooltip
+                  contentStyle={{
+                    background: "#161B22",
+                    border: "1px solid #242D3D",
+                    borderRadius: "8px",
+                    color: "#FAFAFA",
+                    fontSize: "12px",
+                  }}
+                  formatter={(value: unknown, name: unknown) => [
+                    `${value}%`,
+                    name === "baseline" ? "Baseline (12%)" : "PayRecover ResQ",
+                  ]}
+                />
+                <Legend wrapperStyle={{ color: "#8B949E", fontSize: "10px", paddingTop: "8px" }} />
+                <Bar dataKey="baseline" fill="#F85149" radius={[3, 3, 0, 0]} barSize={16} name="Baseline" />
+                <Bar dataKey="ai" fill="#388BFD" radius={[3, 3, 0, 0]} barSize={16} name="PayRecover ResQ" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
       {/* 12-Month Projected Growth Curve */}
-      <div className="bg-[#161B22] p-6 rounded-2xl border border-[#242D3D]">
-        <h3 className="text-base font-bold text-[#FAFAFA] mb-1">
+      <div className="bg-[#161B22] p-4 sm:p-6 rounded-2xl border border-[#242D3D]">
+        <h3 className="text-sm sm:text-base font-bold text-[#FAFAFA] mb-1">
           12-Month Enterprise Recovery Trajectory at 300M Scale
         </h3>
-        <p className="text-xs text-[#8B949E] mb-4">
+        <p className="text-xs text-[#8B949E] mb-3 sm:mb-4">
           Models self-learning conversion improvement as the behavioral engine optimizes channel timings.
         </p>
-        <ResponsiveContainer width="100%" height={280}>
-          <LineChart data={monthlyProjection}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
-            <XAxis dataKey="month" stroke="#8B949E" fontSize={11} label={{ value: "Month", position: "insideBottom", offset: -5, fill: "#8B949E" }} />
-            <YAxis stroke="#8B949E" fontSize={11} tickFormatter={(v) => `₹${v} Cr`} />
-            <Tooltip
-              contentStyle={{ background: "#161B22", border: "1px solid #242D3D", borderRadius: "8px", color: "#FAFAFA" }}
-              formatter={(value: unknown, name: unknown) => [`₹${value} Cr`, name === "withAI" ? "With PayRecover ResQ" : "Without AI"]}
-              labelFormatter={(label) => `Month ${label}`}
-            />
-            <Legend wrapperStyle={{ color: "#8B949E", fontSize: "11px" }} />
-            <Line type="monotone" dataKey="withAI" stroke="#388BFD" strokeWidth={3} dot={{ fill: "#388BFD", r: 4 }} name="withAI" />
-            <Line type="monotone" dataKey="withoutAI" stroke="#F85149" strokeWidth={2} strokeDasharray="5 5" dot={{ fill: "#F85149", r: 3 }} name="withoutAI" />
-          </LineChart>
-        </ResponsiveContainer>
+        <div className="w-full h-[240px] sm:h-[280px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={monthlyProjection} margin={{ left: -10, right: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#242D3D" vertical={false} />
+              <XAxis dataKey="month" stroke="#8B949E" fontSize={10} label={{ value: "Month", position: "insideBottom", offset: -5, fill: "#8B949E", fontSize: 10 }} />
+              <YAxis stroke="#8B949E" fontSize={10} tickFormatter={(v) => `₹${v} Cr`} />
+              <Tooltip
+                contentStyle={{ background: "#161B22", border: "1px solid #242D3D", borderRadius: "8px", color: "#FAFAFA", fontSize: "12px" }}
+                formatter={(value: unknown, name: unknown) => [`₹${value} Cr`, name === "withAI" ? "With PayRecover ResQ" : "Without AI"]}
+                labelFormatter={(label) => `Month ${label}`}
+              />
+              <Legend wrapperStyle={{ color: "#8B949E", fontSize: "10px" }} />
+              <Line type="monotone" dataKey="withAI" stroke="#388BFD" strokeWidth={3} dot={{ fill: "#388BFD", r: 3 }} name="withAI" />
+              <Line type="monotone" dataKey="withoutAI" stroke="#F85149" strokeWidth={2} strokeDasharray="5 5" dot={{ fill: "#F85149", r: 3 }} name="withoutAI" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

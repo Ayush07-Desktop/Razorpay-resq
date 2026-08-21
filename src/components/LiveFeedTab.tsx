@@ -129,12 +129,12 @@ export default function LiveFeedTab({
   // Pre-simulation state
   if (results.length === 0 && !loading) {
     return (
-      <div className="text-center py-16">
-        <div className="text-6xl mb-6">🔍</div>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] mb-3">
+      <div className="text-center py-10 sm:py-16 px-2">
+        <div className="text-5xl sm:text-6xl mb-4 sm:mb-6">🔍</div>
+        <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA] mb-2 sm:mb-3">
           Ready to Intercept Failed Transactions
         </h2>
-        <p className="text-[#6B7B8D] max-w-md mx-auto mb-6">
+        <p className="text-xs sm:text-sm text-[#6B7B8D] max-w-md mx-auto mb-6">
           200 synthetic failed transactions loaded. Run the 4-Agent Autonomous Recovery Engine
           to diagnose, reroute, and generate customer nudges.
         </p>
@@ -142,29 +142,29 @@ export default function LiveFeedTab({
         <div className="mb-8">
           <button
             onClick={onRun}
-            className="bg-[#388BFD] hover:bg-[#4D9CFF] text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all shadow-lg hover:shadow-blue-500/25 cursor-pointer inline-flex items-center gap-2"
+            className="bg-[#388BFD] hover:bg-[#4D9CFF] text-white px-5 sm:px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-lg hover:shadow-blue-500/25 cursor-pointer inline-flex items-center gap-2"
           >
             ▶ Run Multi-Agent Recovery Simulation
           </button>
         </div>
 
-        <div className="grid grid-cols-4 gap-3 max-w-2xl mx-auto text-left">
-          <div className="bg-[#161B22] rounded-xl p-4 border border-[#242D3D]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-2xl mx-auto text-left">
+          <div className="bg-[#161B22] rounded-xl p-3.5 sm:p-4 border border-[#242D3D]">
             <span className="text-[10px] text-[#388BFD] font-bold block mb-1">AGENT 1</span>
             <p className="text-xs font-bold text-[#FAFAFA] mb-1">Sentinel Ingestion</p>
             <p className="text-[11px] text-[#8B949E]">Root cause taxonomy</p>
           </div>
-          <div className="bg-[#161B22] rounded-xl p-4 border border-[#242D3D]">
+          <div className="bg-[#161B22] rounded-xl p-3.5 sm:p-4 border border-[#242D3D]">
             <span className="text-[10px] text-[#2EA043] font-bold block mb-1">AGENT 2</span>
             <p className="text-xs font-bold text-[#FAFAFA] mb-1">Smart Routing</p>
             <p className="text-[11px] text-[#8B949E]">Bank failover switch</p>
           </div>
-          <div className="bg-[#161B22] rounded-xl p-4 border border-[#242D3D]">
+          <div className="bg-[#161B22] rounded-xl p-3.5 sm:p-4 border border-[#242D3D]">
             <span className="text-[10px] text-[#A371F7] font-bold block mb-1">AGENT 3</span>
             <p className="text-xs font-bold text-[#FAFAFA] mb-1">Behavioral Nudge</p>
             <p className="text-[11px] text-[#8B949E]">WhatsApp / SMS copy</p>
           </div>
-          <div className="bg-[#161B22] rounded-xl p-4 border border-[#242D3D]">
+          <div className="bg-[#161B22] rounded-xl p-3.5 sm:p-4 border border-[#242D3D]">
             <span className="text-[10px] text-[#E6A817] font-bold block mb-1">AGENT 4</span>
             <p className="text-xs font-bold text-[#FAFAFA] mb-1">Risk & Scoring</p>
             <p className="text-[11px] text-[#8B949E]">Probability & LTV</p>
@@ -177,31 +177,31 @@ export default function LiveFeedTab({
   // Loading state
   if (loading) {
     return (
-      <div className="text-center py-20">
-        <div className="text-6xl mb-6 animate-pulse">⚡</div>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] mb-3">
+      <div className="text-center py-16 sm:py-20 px-4">
+        <div className="text-5xl sm:text-6xl mb-4 sm:mb-6 animate-pulse">⚡</div>
+        <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA] mb-2 sm:mb-3">
           Multi-Agent Recovery Pipeline Active
         </h2>
-        <p className="text-[#6B7B8D]">
-          Orchestrating Sentinel $\to$ Routing $\to$ Behavioral $\to$ Risk Agents across 200 transactions…
+        <p className="text-xs sm:text-sm text-[#6B7B8D] max-w-lg mx-auto">
+          Orchestrating Sentinel → Routing → Behavioral → Risk Agents across 200 transactions…
         </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#FAFAFA]">Live Payment Failure Feed & Interceptor</h2>
-          <p className="text-sm text-[#8B949E]">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#FAFAFA]">Live Payment Failure Feed & Interceptor</h2>
+          <p className="text-xs sm:text-sm text-[#8B949E] mt-0.5">
             Real-time failed transactions with automated root-cause diagnosis, failover routing, and customer nudges.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={exportCSV}
-            className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#FAFAFA] px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-2"
+            className="w-full sm:w-auto justify-center bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#FAFAFA] px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-2"
           >
             <span>📥</span> Export Audit CSV
           </button>
@@ -209,13 +209,13 @@ export default function LiveFeedTab({
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-[#161B22] p-4 rounded-2xl border border-[#242D3D] space-y-3">
-        <div className="flex items-center gap-3 flex-wrap">
+      <div className="bg-[#161B22] p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-[#242D3D] space-y-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:items-center gap-2 sm:gap-3">
           {/* Search Box */}
-          <div className="flex-1 min-w-[200px] relative">
+          <div className="sm:col-span-2 lg:flex-1 min-w-[200px] relative">
             <input
               type="text"
-              placeholder="Search by Txn ID or Amount (e.g. TXN_042 or 3500)..."
+              placeholder="Search Txn ID or Amount (e.g. TXN_042)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#0E1117] border border-[#242D3D] rounded-xl px-3.5 py-2 text-xs text-[#FAFAFA] placeholder-[#5C6C7F] focus:outline-none focus:border-[#388BFD]"
@@ -226,7 +226,7 @@ export default function LiveFeedTab({
           <select
             value={selectedMethod}
             onChange={(e) => setSelectedMethod(e.target.value)}
-            className="bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
+            className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Rails (UPI, Card...)</option>
             <option value="UPI">UPI</option>
@@ -239,7 +239,7 @@ export default function LiveFeedTab({
           <select
             value={selectedReason}
             onChange={(e) => setSelectedReason(e.target.value)}
-            className="bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
+            className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Failure Types</option>
             <option value="otp_timeout">OTP Timeout</option>
@@ -254,7 +254,7 @@ export default function LiveFeedTab({
           <select
             value={selectedSegment}
             onChange={(e) => setSelectedSegment(e.target.value)}
-            className="bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
+            className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Segments</option>
             <option value="high_value">High Value (VIP)</option>
@@ -266,7 +266,7 @@ export default function LiveFeedTab({
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
+            className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Statuses</option>
             <option value="RECOVERED">Recovered Only</option>
@@ -276,7 +276,7 @@ export default function LiveFeedTab({
 
         {/* Action Controls */}
         <div className="flex items-center justify-between pt-2 border-t border-[#242D3D]/50 text-xs text-[#8B949E] flex-wrap gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={showNext}
               disabled={visibleResults.length >= sortedResults.length}
@@ -298,9 +298,9 @@ export default function LiveFeedTab({
               🔄 Reset
             </button>
           </div>
-          <span>
+          <span className="text-[11px] sm:text-xs">
             Displaying <strong className="text-[#FAFAFA]">{visibleResults.length}</strong> of{" "}
-            <strong className="text-[#FAFAFA]">{sortedResults.length}</strong> filtered transactions
+            <strong className="text-[#FAFAFA]">{sortedResults.length}</strong> filtered
           </span>
         </div>
       </div>
@@ -357,73 +357,81 @@ function EnhancedTransactionCard({
   return (
     <div
       className="bg-[#161B22] border border-[#242D3D] rounded-xl overflow-hidden animate-fade-in card-hover"
-      style={{ animationDelay: `${index * 30}ms` }}
+      style={{ animationDelay: `${index * 20}ms` }}
     >
-      {/* Header bar */}
-      <div className="w-full flex items-center justify-between px-5 py-3 text-left flex-wrap gap-2">
-        <button
+      {/* Responsive Card Header Bar */}
+      <div className="w-full p-3.5 sm:px-5 sm:py-3.5 text-left flex flex-col md:flex-row md:items-center justify-between gap-3">
+        {/* Clickable Header Info Area */}
+        <div
           onClick={onToggle}
-          className="flex items-center gap-3 flex-1 min-w-[300px] cursor-pointer"
+          className="flex-1 cursor-pointer flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 min-w-0"
         >
-          <span className="text-[#8B949E] text-xs font-mono">{isExpanded ? "▾" : "▸"}</span>
-          <span
-            className={`w-2.5 h-2.5 rounded-full ${
-              result.recovered ? "bg-[#2EA043] shadow-[0_0_8px_#2EA043]" : "bg-[#F85149]"
-            }`}
-          />
-          <span className="font-mono text-xs font-bold text-[#7EB6F0]">
-            {result.transaction_id}
-          </span>
-          <span className="text-[#3A4A5C]">|</span>
-          <span className="text-sm font-bold text-[#FAFAFA]">
-            ₹{result.amount.toLocaleString("en-IN")}
-          </span>
-          <span className="text-[#3A4A5C]">|</span>
-          <span className="text-xs text-[#C9D1D9]">{result.payment_method}</span>
-          <span className="text-[#3A4A5C]">|</span>
-          <span className="text-xs text-[#8B949E]">
-            {FAILURE_LABELS[result.failure_reason]}
-          </span>
-          <span className="text-[#3A4A5C]">|</span>
-          <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-md"
-            style={{
-              backgroundColor: `${probColor}15`,
-              color: probColor,
-              border: `1px solid ${probColor}30`,
-            }}
-          >
-            {result.recovery_probability}% Recovery
-          </span>
-        </button>
+          {/* Main Identifier & Amount Line */}
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#8B949E] text-xs font-mono shrink-0">
+              {isExpanded ? "▾" : "▸"}
+            </span>
+            <span
+              className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                result.recovered ? "bg-[#2EA043] shadow-[0_0_8px_#2EA043]" : "bg-[#F85149]"
+              }`}
+            />
+            <span className="font-mono text-xs font-bold text-[#7EB6F0]">
+              {result.transaction_id}
+            </span>
+            <span className="text-sm sm:text-base font-bold text-[#FAFAFA] ml-1">
+              ₹{result.amount.toLocaleString("en-IN")}
+            </span>
+          </div>
 
-        {/* Direct Action Trigger: Preview Nudge */}
-        <div className="flex items-center gap-2">
+          {/* Badges / Details Row (flows nicely on mobile and desktop) */}
+          <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 ml-5 sm:ml-0 text-xs">
+            <span className="bg-[#0E1117] text-[#C9D1D9] px-2 py-0.5 rounded border border-[#242D3D] text-[11px]">
+              {result.payment_method}
+            </span>
+            <span className="text-[#8B949E] bg-[#0E1117] px-2 py-0.5 rounded border border-[#242D3D] text-[11px] truncate max-w-[160px] sm:max-w-none">
+              {FAILURE_LABELS[result.failure_reason]}
+            </span>
+            <span
+              className="text-[11px] font-semibold px-2 py-0.5 rounded"
+              style={{
+                backgroundColor: `${probColor}15`,
+                color: probColor,
+                border: `1px solid ${probColor}30`,
+              }}
+            >
+              {result.recovery_probability}% Rec
+            </span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-[#242D3D]/50">
           {result.nudge && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onOpenNudgeModal();
               }}
-              className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-xs font-semibold text-[#388BFD] hover:text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
+              className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-xs font-semibold text-[#388BFD] hover:text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shrink-0 touch-target"
             >
               <span>📱</span> Preview Nudge
             </button>
           )}
           <button
             onClick={onToggle}
-            className="text-[#8B949E] hover:text-[#FAFAFA] text-xs px-2 py-1 cursor-pointer"
+            className="text-[#8B949E] hover:text-[#FAFAFA] text-xs px-2.5 py-1.5 rounded-lg hover:bg-[#1C2333] cursor-pointer"
           >
-            {isExpanded ? "Collapse" : "Details"}
+            {isExpanded ? "Collapse ▲" : "Details ▼"}
           </button>
         </div>
       </div>
 
       {/* Expanded multi-agent breakdown */}
       {isExpanded && (
-        <div className="border-t border-[#242D3D] p-5 space-y-4 bg-[#0E1117]">
+        <div className="border-t border-[#242D3D] p-3.5 sm:p-5 space-y-3 sm:space-y-4 bg-[#0E1117]">
           {/* Metadata Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 text-xs">
             <div className="bg-[#161B22] p-3 rounded-xl border border-[#242D3D]">
               <span className="text-[#8B949E] block text-[10px] uppercase">User Segment</span>
               <span className="font-semibold text-[#FAFAFA] capitalize">
@@ -432,7 +440,7 @@ function EnhancedTransactionCard({
             </div>
             <div className="bg-[#161B22] p-3 rounded-xl border border-[#242D3D]">
               <span className="text-[#8B949E] block text-[10px] uppercase">Smart Failover Rail</span>
-              <span className="font-semibold text-[#2EA043]">
+              <span className="font-semibold text-[#2EA043] break-words">
                 {result.failover_gateway || "Standard Redundant Route"}
               </span>
             </div>
@@ -455,7 +463,7 @@ function EnhancedTransactionCard({
           </div>
 
           {/* Root cause & action */}
-          <div className="bg-[#161B22] p-4 rounded-xl border border-[#242D3D] space-y-2 text-xs">
+          <div className="bg-[#161B22] p-3.5 sm:p-4 rounded-xl border border-[#242D3D] space-y-2 text-xs">
             <div>
               <span className="text-[#8B949E] font-bold uppercase text-[10px]">Diagnosis & Root Cause: </span>
               <span className="text-[#FAFAFA]">{result.root_cause}</span>
@@ -467,7 +475,7 @@ function EnhancedTransactionCard({
           </div>
 
           {/* AI Reasoning */}
-          <div className="bg-gradient-to-r from-[#161B22] to-[#1C2333] p-4 rounded-xl border border-[#2D3748] text-xs">
+          <div className="bg-gradient-to-r from-[#161B22] to-[#1C2333] p-3.5 sm:p-4 rounded-xl border border-[#2D3748] text-xs">
             <p className="font-semibold text-[#388BFD] mb-1 flex items-center gap-1.5">
               <span>🤖</span> Autonomous Claude Reasoning:
             </p>
@@ -476,11 +484,11 @@ function EnhancedTransactionCard({
 
           {/* 4-Agent Execution Timeline */}
           {result.agent_traces && (
-            <div className="bg-[#161B22] p-4 rounded-xl border border-[#242D3D] text-xs">
-              <span className="text-[10px] font-bold text-[#8B949E] uppercase block mb-3">
+            <div className="bg-[#161B22] p-3.5 sm:p-4 rounded-xl border border-[#242D3D] text-xs">
+              <span className="text-[10px] font-bold text-[#8B949E] uppercase block mb-2 sm:mb-3">
                 ⚡ 4-Agent Execution Audit Trace
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
                 {result.agent_traces.map((trace) => (
                   <div
                     key={trace.step}
@@ -505,3 +513,4 @@ function EnhancedTransactionCard({
     </div>
   );
 }
+

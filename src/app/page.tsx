@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [results, setResults] = useState<RecoveryResult[]>([]);
   const [summary, setSummary] = useState<RecoverySummary | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const runSimulation = useCallback(async () => {
     if (loading || results.length > 0) return;
@@ -70,22 +71,45 @@ export default function Dashboard() {
     : 0;
 
   return (
-    <div className="flex min-h-screen">
-      {/* ===== SIDEBAR ===== */}
-      <aside className="w-[280px] bg-[#0E1117] border-r border-[#1E2533] flex flex-col shrink-0 sticky top-0 h-screen overflow-y-auto">
-        {/* Logo area */}
-        <div className="px-6 pt-8 pb-5">
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-[28px] leading-none">🛡️</span>
-            <div>
-              <h1 className="text-[18px] font-bold tracking-tight text-[#F0F6FC]">
-                Razorpay <span className="text-[#388BFD]">ResQ</span>
-              </h1>
+    <div className="flex min-h-screen relative overflow-x-hidden bg-[#0E1117]">
+      {/* ===== MOBILE BACKDROP OVERLAY ===== */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden animate-fade-in"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* ===== SIDEBAR (Fixed Drawer on Mobile, Sticky Column on Desktop) ===== */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-[280px] sm:w-[300px] bg-[#0E1117] border-r border-[#1E2533] flex flex-col shrink-0 h-screen overflow-y-auto transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+          mobileMenuOpen ? "translate-x-0 shadow-2xl shadow-blue-500/10" : "-translate-x-full"
+        }`}
+      >
+        {/* Logo area with Mobile Close Button */}
+        <div className="px-6 pt-6 sm:pt-8 pb-5 flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="text-[28px] leading-none">🛡️</span>
+              <div>
+                <h1 className="text-[18px] font-bold tracking-tight text-[#F0F6FC]">
+                  Razorpay <span className="text-[#388BFD]">ResQ</span>
+                </h1>
+              </div>
             </div>
+            <p className="text-[11px] text-[#5C6C7F] leading-tight mt-0.5">
+              Autonomous Payment Recovery & Orchestration
+            </p>
           </div>
-          <p className="text-[11px] text-[#5C6C7F] leading-tight mt-0.5">
-            Autonomous Payment Recovery & Orchestration
-          </p>
+          {/* Mobile Close Button */}
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="lg:hidden text-[#8B949E] hover:text-[#FAFAFA] p-1.5 rounded-lg hover:bg-[#161B22] cursor-pointer"
+            aria-label="Close sidebar"
+          >
+            ✕
+          </button>
         </div>
 
         <div className="mx-6 h-px bg-[#1E2533]" />
@@ -152,7 +176,10 @@ export default function Dashboard() {
         {/* Run CTA button */}
         <div className="px-6 py-5">
           <button
-            onClick={runSimulation}
+            onClick={() => {
+              runSimulation();
+              setMobileMenuOpen(false);
+            }}
             disabled={loading || results.length > 0}
             className={`w-full py-3.5 px-4 rounded-xl font-semibold text-[13px] transition-all duration-300 cursor-pointer shadow-lg ${
               results.length > 0
@@ -204,133 +231,186 @@ export default function Dashboard() {
         </div>
       </aside>
 
-      {/* ===== MAIN CONTENT ===== */}
-      <main className="flex-1 min-w-0 overflow-y-auto bg-[#0E1117]">
-        {/* Header */}
-        <div className="px-10 pt-8 pb-2">
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-2">
-            <div className="flex items-center gap-3">
-              <span className="text-[32px] leading-none">🛡️</span>
-              <div>
-                <h1 className="text-[26px] font-bold tracking-tight text-[#F0F6FC]">
-                  Razorpay <span className="text-[#388BFD]">ResQ</span>
-                </h1>
-                <p className="text-[12px] text-[#5C6C7F]">
-                  Autonomous Multi-Agent Payment Failure Interception & Smart Orchestration Engine
-                </p>
+      {/* ===== MAIN CONTENT WRAPPER ===== */}
+      <div className="flex-1 flex flex-col min-w-0 bg-[#0E1117]">
+        {/* ===== TOP MOBILE NAVBAR (Visible on < lg) ===== */}
+        <header className="lg:hidden sticky top-0 z-30 bg-[#0E1117]/95 backdrop-blur-md border-b border-[#1E2533] px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-2 rounded-lg bg-[#161B22] border border-[#242D3D] text-[#FAFAFA] hover:bg-[#1C2333] cursor-pointer touch-target flex items-center justify-center"
+              aria-label="Open navigation menu"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="text-xl leading-none">🛡️</span>
+              <span className="font-bold text-sm tracking-tight text-[#F0F6FC]">
+                Razorpay <span className="text-[#388BFD]">ResQ</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 bg-[#161B22] border border-[#242D3D] px-2.5 py-1 rounded-full text-[10px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2EA043] animate-pulse" />
+              <span className="text-[#8B949E] hidden xs:inline">Live:</span>
+              <span className="text-[#2EA043] font-bold">99.2%</span>
+            </div>
+
+            {results.length === 0 && (
+              <button
+                onClick={runSimulation}
+                disabled={loading}
+                className="bg-[#388BFD] hover:bg-[#4D9CFF] text-white px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer disabled:opacity-50"
+              >
+                {loading ? "Running…" : "▶ Run"}
+              </button>
+            )}
+          </div>
+        </header>
+
+        {/* ===== MAIN PAGE CONTENT ===== */}
+        <main className="flex-1 min-w-0 bg-[#0E1117]">
+          {/* Header section */}
+          <div className="px-4 sm:px-6 lg:px-8 xl:px-10 pt-4 sm:pt-6 lg:pt-8 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+              <div className="flex items-start sm:items-center gap-3">
+                <span className="text-2xl sm:text-[32px] leading-none shrink-0 mt-0.5 sm:mt-0">🛡️</span>
+                <div>
+                  <h1 className="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-[#F0F6FC]">
+                    Razorpay <span className="text-[#388BFD]">ResQ</span>
+                  </h1>
+                  <p className="text-xs sm:text-[12px] text-[#5C6C7F] mt-0.5 leading-normal">
+                    Autonomous Multi-Agent Payment Failure Interception & Smart Orchestration Engine
+                  </p>
+                </div>
+              </div>
+
+              {/* Enterprise Tag */}
+              <div className="self-start sm:self-auto flex items-center gap-2 bg-[#161B22] border border-[#242D3D] px-3.5 py-1.5 rounded-full text-xs shrink-0">
+                <span className="w-2 h-2 rounded-full bg-[#2EA043]" />
+                <span className="text-[#8B949E]">Track 3: AI Revenue Recovery</span>
               </div>
             </div>
 
-            {/* Enterprise Tag */}
-            <div className="flex items-center gap-2 bg-[#161B22] border border-[#242D3D] px-3.5 py-1.5 rounded-full text-xs">
-              <span className="w-2 h-2 rounded-full bg-[#2EA043]" />
-              <span className="text-[#8B949E]">Track 3: AI Revenue Recovery</span>
+            {/* Top Metric Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mt-4 sm:mt-6 mb-4 sm:mb-6">
+              <MetricCard
+                label="Autonomous Recovery Rate"
+                value={summary ? `${summary.recovery_rate}%` : "—"}
+                loaded={!!summary}
+                sub={summary ? `Baseline: ${baselineRate}%` : undefined}
+              />
+              <MetricCard
+                label="Net Recovery Lift"
+                value={summary ? `+${recoveryLift}pp` : "—"}
+                sub={summary ? "Over standard retry" : undefined}
+                subColor="text-[#2EA043]"
+                loaded={!!summary}
+              />
+              <MetricCard
+                label="Scale: Failed Txns/Month"
+                value="6M"
+                sub="Across 300M+ Users"
+                loaded={true}
+              />
+              <MetricCard
+                label="Projected Revenue Rescued"
+                value={
+                  summary
+                    ? `₹${Math.round((summary.recovery_rate / 100) * 1200)}Cr/mo`
+                    : "—"
+                }
+                sub={
+                  summary
+                    ? `+₹${Math.round(((summary.recovery_rate - baselineRate) / 100) * 1200)}Cr/mo net lift`
+                    : undefined
+                }
+                subColor="text-[#2EA043]"
+                loaded={!!summary}
+              />
+            </div>
+
+            {/* Impact Banner */}
+            {summary && (
+              <div className="bg-gradient-to-r from-[#0D2847] to-[#0D1F3C] border border-[#1E3A5F]/60 rounded-xl px-4 sm:px-6 py-3.5 mb-6 animate-fade-in-up flex items-center justify-between flex-wrap gap-3">
+                <p className="text-xs sm:text-[12px] text-[#7EB6F0] leading-relaxed">
+                  🚀 At 300M users scale, PayRecover ResQ rescues an estimated{" "}
+                  <span className="text-[#F0F6FC] font-semibold">
+                    ₹{Math.round((summary.recovery_rate / 100) * 1200)} crore/month
+                  </span>{" "}
+                  (
+                  <span className="text-[#2EA043] font-semibold">
+                    +₹{Math.round(((summary.recovery_rate - baselineRate) / 100) * 1200)} Cr/mo
+                  </span>{" "}
+                  net incremental uplift) via autonomous 4-agent orchestration.
+                </p>
+                <span className="text-[10px] sm:text-[11px] font-mono bg-[#388BFD]/20 text-[#7EB6F0] px-2.5 py-1 rounded border border-[#388BFD]/30 shrink-0">
+                  ACTIVE 4-AGENT CORE
+                </span>
+              </div>
+            )}
+
+            {/* Error */}
+            {error && (
+              <div className="bg-[#F85149]/10 border border-[#F85149]/30 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-[#F85149] text-xs sm:text-sm mb-6">
+                ⚠️ {error}
+              </div>
+            )}
+          </div>
+
+          {/* Tab Navigation with responsive horizontal smooth scroll */}
+          <div className="px-4 sm:px-6 lg:px-8 xl:px-10 border-b border-[#1E2533]">
+            <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar scroll-smooth">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`pb-3 text-xs sm:text-[13px] font-medium transition-all whitespace-nowrap cursor-pointer shrink-0 touch-target flex items-center ${
+                    activeTab === tab.id ? "tab-active font-bold" : "tab-inactive"
+                  }`}
+                >
+                  <span>{tab.emoji}</span>
+                  <span className="ml-1.5">{tab.label}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Top Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 mb-6">
-            <MetricCard
-              label="Autonomous Recovery Rate"
-              value={summary ? `${summary.recovery_rate}%` : "—"}
-              loaded={!!summary}
-              sub={summary ? `Baseline: ${baselineRate}%` : undefined}
-            />
-            <MetricCard
-              label="Net Recovery Lift"
-              value={summary ? `+${recoveryLift}pp` : "—"}
-              sub={summary ? "Over standard retry" : undefined}
-              subColor="text-[#2EA043]"
-              loaded={!!summary}
-            />
-            <MetricCard
-              label="Scale: Failed Txns/Month"
-              value="6M"
-              sub="Across 300M+ Users"
-              loaded={true}
-            />
-            <MetricCard
-              label="Projected Revenue Rescued"
-              value={
-                summary
-                  ? `₹${Math.round((summary.recovery_rate / 100) * 1200)}Cr/mo`
-                  : "—"
-              }
-              sub={
-                summary
-                  ? `+₹${Math.round(((summary.recovery_rate - baselineRate) / 100) * 1200)}Cr/mo net lift`
-                  : undefined
-              }
-              subColor="text-[#2EA043]"
-              loaded={!!summary}
-            />
+          {/* Tab Content */}
+          <div className="px-4 sm:px-6 lg:px-8 xl:px-10 py-6 sm:py-8">
+            {activeTab === "live-feed" && (
+              <LiveFeedTab
+                results={results}
+                loading={loading}
+                summary={summary}
+                onRun={runSimulation}
+              />
+            )}
+            {activeTab === "policy-sandbox" && (
+              <PolicySandboxTab results={results} />
+            )}
+            {activeTab === "gateway-matrix" && <GatewayMatrixTab />}
+            {activeTab === "revenue-recovery" && (
+              <RevenueRecoveryTab results={results} summary={summary} />
+            )}
+            {activeTab === "multi-agent" && <MultiAgentTab />}
           </div>
-
-          {/* Impact Banner */}
-          {summary && (
-            <div className="bg-gradient-to-r from-[#0D2847] to-[#0D1F3C] border border-[#1E3A5F]/60 rounded-xl px-6 py-3.5 mb-6 animate-fade-in-up flex items-center justify-between flex-wrap gap-3">
-              <p className="text-[12px] text-[#7EB6F0] leading-relaxed">
-                🚀 At 300M users scale, PayRecover ResQ rescues an estimated{" "}
-                <span className="text-[#F0F6FC] font-semibold">
-                  ₹{Math.round((summary.recovery_rate / 100) * 1200)} crore/month
-                </span>{" "}
-                (
-                <span className="text-[#2EA043] font-semibold">
-                  +₹{Math.round(((summary.recovery_rate - baselineRate) / 100) * 1200)} Cr/mo
-                </span>{" "}
-                net incremental uplift) via autonomous 4-agent orchestration.
-              </p>
-              <span className="text-[11px] font-mono bg-[#388BFD]/20 text-[#7EB6F0] px-2.5 py-1 rounded border border-[#388BFD]/30">
-                ACTIVE 4-AGENT CORE
-              </span>
-            </div>
-          )}
-
-          {/* Error */}
-          {error && (
-            <div className="bg-[#F85149]/10 border border-[#F85149]/30 rounded-xl px-5 py-4 text-[#F85149] text-sm mb-6">
-              ⚠️ {error}
-            </div>
-          )}
-        </div>
-
-        {/* Tab Navigation */}
-        <div className="px-10 border-b border-[#1E2533]">
-          <div className="flex gap-6 overflow-x-auto">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`pb-3.5 text-[13px] font-medium transition-all whitespace-nowrap cursor-pointer ${
-                  activeTab === tab.id ? "tab-active font-bold" : "tab-inactive"
-                }`}
-              >
-                {tab.emoji} <span className="ml-1.5">{tab.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Tab Content */}
-        <div className="px-10 py-8">
-          {activeTab === "live-feed" && (
-            <LiveFeedTab
-              results={results}
-              loading={loading}
-              summary={summary}
-              onRun={runSimulation}
-            />
-          )}
-          {activeTab === "policy-sandbox" && (
-            <PolicySandboxTab results={results} />
-          )}
-          {activeTab === "gateway-matrix" && <GatewayMatrixTab />}
-          {activeTab === "revenue-recovery" && (
-            <RevenueRecoveryTab results={results} summary={summary} />
-          )}
-          {activeTab === "multi-agent" && <MultiAgentTab />}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
