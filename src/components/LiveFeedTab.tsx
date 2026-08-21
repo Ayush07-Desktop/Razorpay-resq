@@ -32,7 +32,7 @@ export default function LiveFeedTab({
   summary,
   onRun,
 }: LiveFeedTabProps) {
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [visibleCount, setVisibleCount] = useState<number>(10);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedNudgeTxn, setSelectedNudgeTxn] = useState<RecoveryResult | null>(null);
 
@@ -72,10 +72,10 @@ export default function LiveFeedTab({
     return [...filteredResults].sort((a, b) => b.amount - a.amount);
   }, [filteredResults]);
 
-  const visibleResults = sortedResults.slice(0, visibleCount === 0 ? 10 : visibleCount);
+  const visibleResults = sortedResults.slice(0, visibleCount);
 
   const showNext = () => {
-    setVisibleCount((c) => Math.min(sortedResults.length, (c === 0 ? 10 : c) + 5));
+    setVisibleCount((c) => Math.min(sortedResults.length, c + 10));
   };
 
   const showAll = () => {
@@ -85,7 +85,13 @@ export default function LiveFeedTab({
   const resetFeed = () => {
     setVisibleCount(10);
     setExpandedId(null);
+    setSearchQuery("");
+    setSelectedMethod("ALL");
+    setSelectedReason("ALL");
+    setSelectedSegment("ALL");
+    setSelectedStatus("ALL");
   };
+
 
   // CSV Export functionality
   const exportCSV = () => {
@@ -217,7 +223,10 @@ export default function LiveFeedTab({
               type="text"
               placeholder="Search Txn ID or Amount (e.g. TXN_042)..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setVisibleCount(10);
+              }}
               className="w-full bg-[#0E1117] border border-[#242D3D] rounded-xl px-3.5 py-2 text-xs text-[#FAFAFA] placeholder-[#5C6C7F] focus:outline-none focus:border-[#388BFD]"
             />
           </div>
@@ -225,7 +234,10 @@ export default function LiveFeedTab({
           {/* Payment Method Filter */}
           <select
             value={selectedMethod}
-            onChange={(e) => setSelectedMethod(e.target.value)}
+            onChange={(e) => {
+              setSelectedMethod(e.target.value);
+              setVisibleCount(10);
+            }}
             className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Rails (UPI, Card...)</option>
@@ -238,7 +250,10 @@ export default function LiveFeedTab({
           {/* Failure Reason Filter */}
           <select
             value={selectedReason}
-            onChange={(e) => setSelectedReason(e.target.value)}
+            onChange={(e) => {
+              setSelectedReason(e.target.value);
+              setVisibleCount(10);
+            }}
             className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Failure Types</option>
@@ -253,7 +268,10 @@ export default function LiveFeedTab({
           {/* Segment Filter */}
           <select
             value={selectedSegment}
-            onChange={(e) => setSelectedSegment(e.target.value)}
+            onChange={(e) => {
+              setSelectedSegment(e.target.value);
+              setVisibleCount(10);
+            }}
             className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Segments</option>
@@ -265,7 +283,10 @@ export default function LiveFeedTab({
           {/* Status Filter */}
           <select
             value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
+            onChange={(e) => {
+              setSelectedStatus(e.target.value);
+              setVisibleCount(10);
+            }}
             className="w-full lg:w-auto bg-[#0E1117] border border-[#242D3D] rounded-xl px-3 py-2 text-xs text-[#C9D1D9] cursor-pointer"
           >
             <option value="ALL">All Statuses</option>
@@ -280,14 +301,14 @@ export default function LiveFeedTab({
             <button
               onClick={showNext}
               disabled={visibleResults.length >= sortedResults.length}
-              className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#FAFAFA] px-3 py-1.5 rounded-lg font-medium transition-colors disabled:opacity-40 cursor-pointer"
+              className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#FAFAFA] px-3 py-1.5 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
-              ▶ Reveal +5
+              ▶ Reveal +10
             </button>
             <button
               onClick={showAll}
               disabled={visibleResults.length >= sortedResults.length}
-              className="bg-[#388BFD]/15 hover:bg-[#388BFD]/25 border border-[#388BFD]/30 text-[#7EB6F0] px-3 py-1.5 rounded-lg font-medium transition-colors disabled:opacity-40 cursor-pointer"
+              className="bg-[#388BFD]/15 hover:bg-[#388BFD]/25 border border-[#388BFD]/30 text-[#7EB6F0] px-3 py-1.5 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
               ⚡ Show All ({sortedResults.length})
             </button>
@@ -322,6 +343,30 @@ export default function LiveFeedTab({
           />
         ))}
       </div>
+
+      {/* Bottom Load More & Actions Bar */}
+      {visibleResults.length < sortedResults.length && (
+        <div className="bg-[#161B22] p-4 rounded-xl border border-[#242D3D] flex items-center justify-between flex-wrap gap-3 mt-4 animate-fade-in">
+          <span className="text-xs text-[#8B949E]">
+            Showing <strong className="text-[#FAFAFA]">{visibleResults.length}</strong> of{" "}
+            <strong className="text-[#FAFAFA]">{sortedResults.length}</strong> transactions
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={showNext}
+              className="bg-[#1C2333] hover:bg-[#2A3244] border border-[#2D3748] text-[#FAFAFA] px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
+            >
+              ▶ Reveal +10 More
+            </button>
+            <button
+              onClick={showAll}
+              className="bg-[#388BFD]/15 hover:bg-[#388BFD]/25 border border-[#388BFD]/30 text-[#7EB6F0] px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
+            >
+              ⚡ Show All ({sortedResults.length})
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Device Nudge Simulator Modal */}
       {selectedNudgeTxn && (
